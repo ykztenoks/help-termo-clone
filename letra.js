@@ -30,34 +30,36 @@ function testar(e) {
   //o currentTarget é o nosso botão
   //o previousElementSibling é o elemento anterior ao botão, ou seja, o input
   //como agora conseguimos acessar o input, usamos o value no final para acessar o valor dentro do input
-
   const input = e.currentTarget.previousElementSibling;
   const palavraPorLetra = input.value.toUpperCase().split("");
 
+  //CONDIÇÃO DE VITÓRIA: COLOCAR EM FUNÇÃO SEPARADA
   if (
     palavraPorLetra.join("").toLowerCase() ===
     palavraGabarito.join("").toLowerCase()
   ) {
     alert("parabéns!!!");
   }
-  //   const comparaPalavra = palavraGabarito.filter((item) =>
-  //     palavraPorLetra.includes(item)
-  //   );
 
+  //pegando o id do input para pegar o número e utilizar para pegar a linha
   const inputId = input.id.slice(-1);
+
+  //pegando a linha
   const linha = document.getElementById(`res${inputId}`);
 
+  //iterando sobre as letras da palavra digitada no input
   palavraPorLetra.forEach((current, index) => {
-    //PRECISAMOS CHECAR A POSIÇÃO CORRETA, NO INDICE EXATO CONFORME PALAVRA GABARITO
-    //indexOf está checando a primeira aparição da letra
-    //
+    //para cada letra, criar um elemento span
     const letra1 = document.createElement("span");
+    //if comparando se no índice atual temos a mesma letra para palavra gabarito e palavra digitada
     if (
       palavraPorLetra.join("").charAt(index) ===
       palavraGabarito.join("").charAt(index)
     ) {
+      //setando o background verde se passar nesse if
       letra1.style.backgroundColor = "greenyellow";
     } else if (
+      //checando se a letra está na palavra mas na posição errada e setando BG amarelo
       palavraGabarito.includes(current) &&
       palavraPorLetra.indexOf(current) !==
         palavraGabarito.join("").charAt(palavraPorLetra.indexOf(current))
@@ -67,9 +69,8 @@ function testar(e) {
     letra1.innerText = current;
     linha.appendChild(letra1);
   });
-  // res3.innerHTML = `Seu chute 1 acertou as seguintes letras: ${igual1}`
+  //desabilitando o botão quando apertamos o teste
   e.currentTarget.disabled = true;
-  //   const igual2 = wordgab.filter((item) => word2.includes(item));
 }
 
 btn.forEach((current) => {
